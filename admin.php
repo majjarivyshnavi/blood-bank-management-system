@@ -1,6 +1,11 @@
 <?php
-include 'db.php';
+session_start();
+if (!isset($_SESSION['admin'])) {
+    header("Location: admin_login.php");
+    exit();
+}
 
+include 'db.php';
 if (isset($_GET['approve_donor'])) {
     $id = $_GET['approve_donor'];
     mysqli_query($conn, "UPDATE donors SET status='Approved' WHERE id=$id");
